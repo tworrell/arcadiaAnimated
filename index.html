@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title> Javascript Animation - Tara Worrell</title>
+   
+</head>
+<body style="background-image: url(wooden.jpg);">
+    <h1 style="text-align: center; align-content: center; font-family: 'Caveat', cursive; padding-top: 30px; color:rgb(148, 116, 71); text-shadow: 1px 2px rgb(87, 67, 43); font-weight: bolder;">Welcome to ARCADIA!!!</h1>
+    <canvas width="300" height="200" style="border: 1px solid black; position: absolute; top: 0px; left: 0px; right: 0px; bottom: 0px; margin: auto; background-image: url(gameMap.jpg);"></canvas>
+
+    <script type="text/javascript">
+        let img = new Image();
+        img.src = 'greenSpirtes.png';
+        img.onload = function() {
+          init();
+        };
+        
+        let canvas = document.querySelector('canvas');
+        let ctx = canvas.getContext('2d');
+        
+        const scale = 2;
+        const width = 16;
+        const height = 18;
+        const scaledWidth = scale * width;
+        const scaledHeight = scale * height;
+        
+        function drawFrame(frameX, frameY, canvasX, canvasY) {
+          ctx.drawImage(img,
+                        frameX * width, frameY * height, width, height,
+                        canvasX, canvasY, scaledWidth, scaledHeight);
+        }
+        
+        const cycleLoop = [0, 1, 0, 2];
+        let currentLoopIndex = 0;
+        let frameCount = 0;
+        let currentDirection = 0;
+        
+        function step() {
+          frameCount++;
+          if (frameCount < 15) {
+            window.requestAnimationFrame(step);
+            return;
+          }
+          frameCount = 0;
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+          drawFrame(cycleLoop[currentLoopIndex], currentDirection, 0, 0);
+          currentLoopIndex++;
+          if (currentLoopIndex >= cycleLoop.length) {
+            currentLoopIndex = 0;
+            currentDirection++;
+          }
+          if (currentDirection >= 4) {
+            currentDirection = 0;
+          }
+          window.requestAnimationFrame(step);
+        }
+        
+        function init() {
+          window.requestAnimationFrame(step);
+        }
+        
+            </script>
+</body>
+</html>

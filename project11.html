@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Project 11 - Tara Worrell</title>
+</head>
+<body style="background-image: url(minecraft.jpg);">
+    <h1 style="text-align: center; align-content: center;font-family: 'Fredoka One', cursive;padding-top: 100px; text-shadow: 1px 2px bisque;">Out of my way!</h1>
+        <canvas id="myCanvas" width="500" height="250" style="position: absolute; top: 500px; left: 0px; right: 0px; bottom: 0px; margin: auto;"></canvas>
+        
+        
+        <script>
+                let image = new Image();
+                image.src = "sprite.png";
+                let counter = 0,
+                  frame_width = 200,
+                  frame_height = 200;
+                image.onload = function() {
+                  let canvas = document.getElementById("myCanvas");
+                  let context = canvas.getContext("2d");
+                  window.requestAnimationFrame(animate);
+                 
+                  function animate() {
+                    let frame = Math.floor(counter % 3);
+                    context.drawImage(image, frame * frame_width, 0, frame_width, frame_height, counter * 10, 0, frame_width, frame_height);
+                    counter = counter + .20;
+                    if (counter > 50) counter = 0;
+                    window.requestAnimationFrame(animate);
+                  }
+                }
+                </script>
+</body>
+</html>
